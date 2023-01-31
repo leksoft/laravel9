@@ -11,7 +11,27 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-   
+
+
+    //getter
+    public function getStaffFullNameAttribute() { 
+        return $this->staffname . " ".$this->staffsurname ; 
+    }
+
+    //setter 
+    public function setPasswordAttribute($password){
+        return $this->attributes['password'] = Hash::make($password); // use Hash ; 
+    }
+
+    public function setStaffNameAtrribute($val){
+        return $this->attributes['staffname'] = strtolower($val) ; 
+    }
+
+
+
+
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,7 +43,7 @@ class User extends Authenticatable
         'password',
     ];
 
- 
+
 
     /**
      * The attributes that should be hidden for serialization.

@@ -20,7 +20,7 @@ class PostsController extends Controller
     {
         //$posts = \DB::select('select * from posts order By id desc'); 
 
-        $posts = Post::where('user_id',1)->Paginate(5);    // where('user_id','=',1)
+        $posts = Post::userid()->visitor()->Paginate(5);   
         return view('post.index',compact('posts'));
     }
 

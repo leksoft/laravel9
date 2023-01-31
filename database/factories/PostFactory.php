@@ -17,8 +17,18 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-                    'post_title' => fake()->name(),
-                    'post_detail' => fake()->text(),
+                    'post_title' => fake()->sentence(6),
+                    'post_detail' => fake()->paragraph(1),
         ];
     }
+
+    // $faker= Faker::create();
+
+    //     foreach (range(1,100) as $index){
+    //         Article::create([
+    //             'title'=>$faker->sentence(6),
+    //             'description'=>$faker->paragraph(1),
+    //         ]);
+    //     }
+
 }
