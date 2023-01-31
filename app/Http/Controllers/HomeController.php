@@ -10,17 +10,9 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function create() { 
-        return "Create";
+    public function aboute() { 
+        return view('aboute');
     }
-
-    public function update($id=null) { 
-        return "Update ".$id;
-    }
-
-    public function store() { 
-        return "Store";
-    }
-
-    
 }
+
+
