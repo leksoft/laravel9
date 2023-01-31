@@ -4,6 +4,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\CategoryController;
+
+use App\Http\Controllers\StudentsController;
+//StudentsController
+
+Route::get('student/all',[StudentsController::class,'index'])->name('student') ; 
+
+
 //HomeController
 Route::get('/',[HomeController::class,'index']);
 Route::get('/aboute',[HomeController::class,'aboute']);
@@ -27,7 +34,6 @@ Route::get('category/edit/{id}',[CategoryController::class,'edit'])->name('categ
 Route::post('category/update/{id}',[CategoryController::class,'update'])->name('category.update'); //บันทึกการแก้ไข
 
 Route::get('category/destroy/{id}',[CategoryController::class,'destroy'])->name('category.destroy') ; //ลบข้อมูล
-
 
 
 
