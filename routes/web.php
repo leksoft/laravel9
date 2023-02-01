@@ -4,10 +4,25 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\CategoryController;
-
 use App\Http\Controllers\StudentsController;
-//StudentsController
 
+
+use App\Models\Order ; 
+use App\Models\Product ; 
+
+Route::get('/order/{id}',function($id){
+    $order = Order::find($id) ; 
+    return $order->rProduct()->orderBy('name','desc')->get(); 
+});
+
+Route::get('/order/product/{id}',function($id){
+    $order = Product::find($id) ; 
+    return $order->rOrder()->orderBy('id','desc')->get(); 
+});
+
+
+
+//StudentsController
 Route::get('student/all',[StudentsController::class,'index'])->name('student') ; 
 
 

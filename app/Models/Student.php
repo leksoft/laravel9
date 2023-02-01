@@ -11,7 +11,9 @@ class Student extends Model
 
     public function rPhone()
     {
-        return $this->hasOne(Phone::class);
+       // return $this->hasOne(Phone::class); // 1:1
+        
+        return $this->hasMany(Phone::class);
     }
 
     

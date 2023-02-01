@@ -1,8 +1,10 @@
 @foreach ($all_students as $item)
-    Name : {{ $item->rStudent->name }}
+    Name : {{ $item->name }}
     <br />
-    Email : {{ $item->rStudent->email }}
+    Email : {{ $item->email }}
     <br />
-    Phone : {{ $item->phone }}
+    @foreach ($item->rPhone as $single)
+        {{ $single->phone }} <br />
+    @endforeach
     <hr />
 @endforeach
