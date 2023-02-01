@@ -6,9 +6,19 @@ use App\Http\Controllers\PostsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\StudentsController;
 
+use App\Http\Controllers\ProductsController;
 
 use App\Models\Order ; 
 use App\Models\Product ; 
+
+Route::get('products',[ProductsController::class,'index']) ; 
+
+Route::get('products/create',[ProductsController::class,'create'])->name('products.create') ; 
+Route::post('products/store',[ProductsController::class,'store'])->name('products.store') ; 
+
+
+
+
 
 Route::get('/order/{id}',function($id){
     $order = Order::find($id) ; 
