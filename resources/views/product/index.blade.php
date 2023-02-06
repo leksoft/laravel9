@@ -1,17 +1,42 @@
 @extends('layouts.frontend')
-@section('title', 'รายการสินค้า')
+@section('title', 'รายการสินค้าทั้งหมด')
 @section('content')
-    <br /> <br />
-    <div class="row py-5 bg-light">
-        <div class="col">
-            {!! Form::open(['url' => 'foo/bar']) !!}
-            {!! Form::label('email', 'E-Mail Address') !!}
-            {!! Form::text('email', null, ['class' => 'form-control']) !!}
-            {!! Form::close() !!}
-            <hr />
-            {!! link_to('products/create', $title = 'เพิ่มสินค้า', ['class' => 'btn btn-primary'], $secure = null) !!}
+    <section class="py-5 container">
+        <div class="row">
+            <div class="col-lg-12  mx-auto">
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">ลำดับ</th>
+                            <th scope="col">ภาพสินค้า</th>
+                            <th scope="col">ชื่อสินค้า</th>
+                            <th scope="col">ราคา</th>
+                            <th scope="col">จัดการ</th>
+                        </tr>
+                    </thead>
+                    @foreach ($products as $product)
+                        <tbody>
+                            <tr>
+                                <th scope="col">{{ $product->id }}</th>
+                                <th scope="col"><img src="{{ asset('uploads/resize/' . $product->image) }}"
+                                        width="50px" /></th>
+                                <td scope="col">{{ $product->name }}</td>
+                                <td scope="col" style="width: 50%">{{ $product->price }}</td>
+                                <td scope="col">
+                                    <a href="{{ route('products.edit', $product->id) }}"
+                                        class="btn btn-info btn-sm">แก้ไข</a>
+                                    |
+                                    <a href="{{ route('products.destroy', $product->id) }}" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('ยืนยันการลบหรือไม่')">ลบ
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    @endforeach
+                </table>
+                {{ $products->links() }}
+            </div>
         </div>
-    </div>
-
-
+    </section>
 @endsection
