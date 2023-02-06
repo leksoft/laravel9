@@ -5,17 +5,14 @@
     <div class="row py-5 bg-light">
         <div class="col">
 
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+            @include('includes.errors')
 
-            {!! Form::open(['route' => 'products.store', 'file' => true, 'method' => 'POST']) !!}
+            {!! Form::open([
+                'route' => 'products.store',
+                'method' => 'POST',
+                'file' => true,
+            ]) !!}
+
             <div class="col-auto">
                 {!! Form::label('name', 'ชื่อสินค้า') !!}
                 {!! Form::text('name', null, ['class' => 'form-control']) !!}

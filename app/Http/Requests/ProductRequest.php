@@ -16,7 +16,7 @@ class ProductRequest extends FormRequest
             'name' => 'required',
             'price' => 'required',
             'stock' => 'required',
-            'image' => 'mimes:jpeg,jpg,png',
+           // 'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:4048',
 
         ];
     }
@@ -25,7 +25,7 @@ class ProductRequest extends FormRequest
             'name.required' => 'กรุณาระบุชื่อสินค้า',
             'price.required' => 'กรุณากำหนดราคาสินค้า',
             'stock.required' => 'กรุณาระบุจำนวนสินค้าที่มีในสต๊อก',
-            'image.mimes' => 'รองรับไฟล์รูปนามสกุล jpeg,jpg,png',
+           // 'image.*' => 'รองรับไฟล์รูปนามสกุล jpg,png,jpeg,gif,svg',
         ];
     }
 }
