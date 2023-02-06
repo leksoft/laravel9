@@ -12,7 +12,7 @@
                             <th scope="col">ภาพสินค้า</th>
                             <th scope="col">ชื่อสินค้า</th>
                             <th scope="col">ราคา</th>
-                            <th scope="col">จัดการ</th>
+                            <th scope="col" colspan="2">จัดการ</th>
                         </tr>
                     </thead>
                     @foreach ($products as $product)
@@ -26,10 +26,23 @@
                                 <td scope="col">
                                     <a href="{{ route('products.edit', $product->id) }}"
                                         class="btn btn-info btn-sm">แก้ไข</a>
-                                    |
-                                    <a href="{{ route('products.destroy', $product->id) }}" class="btn btn-danger btn-sm"
+
+                                    {{-- <a href="{{ route('products.destroy', $product->id) }}" class="btn btn-danger btn-sm"
                                         onclick="return confirm('ยืนยันการลบหรือไม่')">ลบ
-                                    </a>
+                                    </a> --}}
+                                </td>
+                                <td scope="col">
+                                    {!! Form::open([
+                                        'route' => ['products.destroy', $product->id],
+                                        'method' => 'DELETE',
+                                    ]) !!}
+                                    {!! Form::submit('ลบข้อมูล', [
+                                        'class' => 'btn btn-danger btn-sm',
+                                        'onclick' => "return confirm('ยืนยันการลบหรือไม่')",
+                                    ]) !!}
+
+                                    {!! Form::close() !!}
+
                                 </td>
                             </tr>
                         </tbody>

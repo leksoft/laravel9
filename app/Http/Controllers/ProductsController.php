@@ -76,4 +76,19 @@ class ProductsController extends Controller
             $product->save(); 
             return redirect('/products'); 
     }
+
+    public function destroy($id){
+
+        $product = Product::findOrFail($id);
+
+        //ลบภาพออกจาก Folder ด้วย
+        if ($product->image != NULL) {
+            File::delete('uploads/product/' . $product->image);
+            File::delete('uploads/resize/' . $product->image);
+        }
+
+        $product->delete();
+
+        return redirect('/products');
+    }
 }
