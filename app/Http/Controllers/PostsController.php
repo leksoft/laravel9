@@ -16,12 +16,16 @@ class PostsController extends Controller
     }
 
       //หน้าแรกบทความ
-    public function index()
+    public function index(Request $request)
     {
-        //$posts = \DB::select('select * from posts order By id desc'); 
 
-        $posts = Post::userid()->visitor()->Paginate(5);   
-        return view('post.index',compact('posts'));
+        if ($request->has('trashed')) {
+            $posts = Post::onlyTrashed()->Paginate(10);
+        } else {
+            $posts = Post::Paginate(10);
+        }
+
+            return view('post.index',compact('posts'));
     }
 
     //หน้าเพิ่มบทความ
@@ -34,7 +38,6 @@ class PostsController extends Controller
 
             $title = $request->input('post_title') ; 
             $detail = $request->post_detail; 
-
 
             \DB::insert('insert into posts (post_title,post_detail) values (?,?)',[$title,$detail]);
 
@@ -61,16 +64,31 @@ class PostsController extends Controller
 
     }
 
-
-
     //ลบข้อมูล
     public function destroy($id) { 
         
-        $post = \DB::delete('delete from posts where id = ?',[$id]);
+      //  $post = \DB::delete('delete from posts where id = ?',[$id]);
+        Post::where('id',$id)->delete();
 
         return redirect('/posts');
 
     }
 
+    public function trashed()
+    {
+        $posts = Post::onlyTrashed()->latest()->get();
+        return redirect('/posts');
+    }
+
+    public function restore($id)
+    {
+        Post::where('id',$id)->restore();
+        return redirect('/posts');
+    }
+
+    public function restoreAll(){
+        Post::onlyTrashed()->restore();
+        return redirect('/posts');
+    }
 
 }

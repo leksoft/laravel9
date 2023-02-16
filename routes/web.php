@@ -7,9 +7,16 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\StudentsController;
 
 use App\Http\Controllers\ProductsController; 
-
+use App\Http\Controllers\EmailController; 
 use App\Models\Order ; 
 use App\Models\Product ; 
+
+Route::get('send-email', [EmailController::class, 'send_email']);
+
+//Soft Delete and Data Restore 
+Route::get('posts/trashed', [PostsController::class, 'trashed'])->name('posts.trashed');
+Route::get('posts/restore/{id}', [PostsController::class, 'restore'])->name('posts.restore');
+Route::get('posts/restore-all', [PostsController::class, 'restoreAll'])->name('posts.restoreAll');
 
 //products
 Route::get('products',[ProductsController::class,'index']) ; 
@@ -43,7 +50,7 @@ Route::get('/',[HomeController::class,'index']);
 Route::get('/aboute',[HomeController::class,'aboute']);
 
 //PostController
-Route::get('/posts',[PostsController::class,'index']); // แสดงข้อมูลทั้งหมด
+Route::get('/posts',[PostsController::class,'index'])->name('posts.index'); // แสดงข้อมูลทั้งหมด
 Route::get('create',[PostsController::class,'create'])->name('create') ;  //ฟอร์มเพิ่มข้อมูลใหม่
 Route::post('store',[PostsController::class,'store'])->name('store') ;  //บันทึกข้อมูล
 Route::get('post/edit/{id}',[PostsController::class,'edit'])->name('edit') ; //ฟอร์มแก้ไข
