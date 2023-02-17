@@ -17,5 +17,7 @@ class EmailController extends Controller
         Mail::to('m.nakharin@gmail.com')->send(new TestMail($mailData));
 
         dd("Email is sent successfully.");
+
+      
     }
 }

@@ -17,12 +17,7 @@
                 </form>
 
 
-                {!! Form::open(['url' => 'foo/bar']) !!}
-                {!! Form::label('email', 'E-Mail Address') !!}
-                {!! Form::text('email', null, ['class' => 'form-control']) !!}
-                {!! Form::close() !!}
 
-                {!! link_to('category.create', $title = 'เพิ่มข้อมูล', ['class' => 'btn btn-primary'], $secure = null) !!}
             </div>
         </div>
     </section>

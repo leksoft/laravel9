@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; 
 
 use App\Models\Category ; 
-
+use Session ; 
 class CategoryController extends Controller
 {
 
@@ -38,6 +38,7 @@ class CategoryController extends Controller
         $category->category_name = $request->category_name ; 
         $category->save();
 
+        Session::flash('success','บันทึกข้อมูลเรียบร้อยแล้ว');
         //บันทึกแล้วกลับไปที่หน้าฟอร์มกรอกข้อมูล
         return redirect()->back(); 
 
