@@ -45,9 +45,6 @@ Route::get('/order/product/{id}',function($id){
 Route::get('student/all',[StudentsController::class,'index'])->name('student') ; 
 
 
-//HomeController
-Route::get('/',[HomeController::class,'index']);
-Route::get('/aboute',[HomeController::class,'aboute']);
 
 //PostController
 Route::get('/posts',[PostsController::class,'index'])->name('posts.index'); // แสดงข้อมูลทั้งหมด
@@ -71,4 +68,9 @@ Route::get('category/destroy/{id}',[CategoryController::class,'destroy'])->name(
 
 
 
+Auth::routes();
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//HomeController
+Route::get('/',[HomeController::class,'index']);
+Route::get('/aboute',[HomeController::class,'aboute']);

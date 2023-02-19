@@ -1,30 +1,23 @@
 @extends('layouts.frontend')
-@section('title', 'ยินดีต้อนรับ')
-@section('css_before')
-@endsection
 
 @section('content')
-    <section class="py-5  container">
-        <div class="row py-lg-5">
-            <div class="col-lg-6 col-md-8 mx-auto">
-                @php
-                    $user = 1;
-                @endphp
-                @switch($user)
-                    @case(1)
-                        Admin Page...
-                    @break
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">{{ __('Dashboard') }}</div>
 
-                    @case(2)
-                        Staff Page...
-                    @break
+                    <div class="card-body">
+                        @if (session('status'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif
 
-                    @default
-                        Default case...
-                @endswitch
+                        {{ __('You are logged in!') }}
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
-@endsection
-@section('js_before')
+    </div>
 @endsection
