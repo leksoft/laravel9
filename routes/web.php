@@ -5,13 +5,24 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\StudentsController;
-
+use App\Http\Controllers\FrontendController ;
 use App\Http\Controllers\ProductsController; 
 use App\Http\Controllers\EmailController; 
 use App\Models\Order ; 
 use App\Models\Product ; 
 
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
+
+
+//Frontend 
+Route::get('/',[FrontendController::class,'index']);
+Route::get('/aboute',[FrontendController::class,'aboute']);
 Route::get('send-email', [EmailController::class, 'send_email']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Soft Delete and Data Restore 
 Route::get('posts/trashed', [PostsController::class, 'trashed'])->name('posts.trashed');
@@ -24,10 +35,7 @@ Route::get('products/create',[ProductsController::class,'create'])->name('produc
 Route::post('products/store',[ProductsController::class,'store'])->name('products.store') ; 
 Route::get('products/edit/{id}',[ProductsController::class,'edit'])->name('products.edit') ; 
 Route::post('products/update/{id}',[ProductsController::class,'update'])->name('products.update') ; 
-
 Route::delete('products/destroy/{id}',[ProductsController::class,'destroy'])->name('products.destroy') ; 
-
-
 
 Route::get('/order/{id}',function($id){
     $order = Order::find($id) ; 
@@ -39,23 +47,17 @@ Route::get('/order/product/{id}',function($id){
     return $order->rOrder()->orderBy('id','desc')->get(); 
 });
 
-
-
 //StudentsController
 Route::get('student/all',[StudentsController::class,'index'])->name('student') ; 
 
-
-
 //PostController
 Route::get('/posts',[PostsController::class,'index'])->name('posts.index'); // แสดงข้อมูลทั้งหมด
-Route::get('create',[PostsController::class,'create'])->name('create') ;  //ฟอร์มเพิ่มข้อมูลใหม่
+Route::get('/posts/create',[PostsController::class,'create'])->name('create') ;  //ฟอร์มเพิ่มข้อมูลใหม่
 Route::post('store',[PostsController::class,'store'])->name('store') ;  //บันทึกข้อมูล
 Route::get('post/edit/{id}',[PostsController::class,'edit'])->name('edit') ; //ฟอร์มแก้ไข
 Route::post('post/update/{id}',[PostsController::class,'update'])->name('update'); //บันทึกการแก้ไข
 Route::get('post/destroy/{id}',[PostsController::class,'destroy'])->name('destroy') ; //ลบข้อมูล
-
 Route::get('post/show/{id}',[PostsController::class,'show'])->name('show') ; //แสดงรายละเอียดข้อมูล
-
 
 //CategoryController 
 Route::get('/category',[CategoryController::class,'index']); // แสดงข้อมูลทั้งหมด
@@ -66,11 +68,6 @@ Route::post('category/update/{id}',[CategoryController::class,'update'])->name('
 
 Route::get('category/destroy/{id}',[CategoryController::class,'destroy'])->name('category.destroy') ; //ลบข้อมูล
 
+Route::resource('users', UserController::class);
+Route::resource('roles', RoleController::class);
 
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-//HomeController
-Route::get('/',[HomeController::class,'index']);
-Route::get('/aboute',[HomeController::class,'aboute']);

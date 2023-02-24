@@ -1,18 +1,25 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
-
 use  App\Models\Product ; 
 use Image;
 use File ; 
 class ProductsController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:product-list|product-create|product-edit|product-delete', ['only' => ['index','show']]);
+        $this->middleware('permission:product-create', ['only' => ['create','store']]);
+        $this->middleware('permission:product-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:product-delete', ['only' => ['destroy']]);
+    }
+
     public function index() {
         $products = Product::Paginate(6);
-        return view('product.index',compact('products'));
+        return view('product.index',compact('products'))
+                ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     public function create(){

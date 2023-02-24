@@ -155,6 +155,9 @@ return [
     */
 
     'providers' => [
+        
+        Spatie\Permission\PermissionServiceProvider::class,
+
         Barryvdh\Debugbar\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         /*
