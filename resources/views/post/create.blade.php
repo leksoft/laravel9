@@ -33,15 +33,12 @@
     </section>
 @endsection
 @section('js_before')
-    <script src="https://cdn.ckeditor.com/ckeditor5/37.1.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/38.1.1/classic/ckeditor.js"></script>
     <script>
-        ClassicEditor.create(document.querySelector('#post_detail'), {
-                ckfinder: {
-                    uploadUrl: '{{ url('posts/uploads') . '?_token=' . csrf_token() }}',
-                }
-            })
+        ClassicEditor
+            .create(document.querySelector('#editor'))
             .catch(error => {
-
+                console.error(error);
             });
     </script>
 @endsection
