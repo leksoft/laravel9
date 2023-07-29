@@ -1,5 +1,13 @@
 @extends('layouts.frontend')
 @section('title', 'เพิ่มรายการใหม่')
+@section('css_before')
+    <style>
+        .ck-editor__editable_inline {
+            min-height: 300px;
+        }
+    </style>
+
+@endsection
 @section('content')
     <section class="py-5 container">
         <div class="row py-lg-5">
@@ -13,7 +21,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">รายละเอียด</label>
-                        <textarea type="text" class="form-control" name="post_detail" rows="3"></textarea>
+                        <textarea type="text" class="form-control" name="post_detail" id="post_detail" rows="3"></textarea>
                     </div>
                     <div class="mb-3">
                         <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
@@ -23,4 +31,17 @@
             </div>
         </div>
     </section>
+@endsection
+@section('js_before')
+    <script src="https://cdn.ckeditor.com/ckeditor5/37.1.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor.create(document.querySelector('#post_detail'), {
+                ckfinder: {
+                    uploadUrl: '{{ url('posts/uploads') . '?_token=' . csrf_token() }}',
+                }
+            })
+            .catch(error => {
+
+            });
+    </script>
 @endsection

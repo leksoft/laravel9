@@ -11,6 +11,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css" rel="stylesheet">
+
+    @livewireStyles
+
     @yield('css_before')
 </head>
 
@@ -20,27 +23,34 @@
         <div class="container d-flex flex-wrap">
             <ul class="nav me-auto">
                 <li class="nav-item"><a href="{{ url('/') }}" class="nav-link link-dark px-2 active"
-                        aria-current="page">หน้าหลัก</a></li>
-                <li class="nav-item"><a href="{{ url('/posts') }}" class="nav-link link-dark px-2">บทความ</a></li>
-                <li class="nav-item"><a href="{{ url('/category') }}" class="nav-link link-dark px-2">ประเภทบทความ</a>
-                </li>
-                <li class="nav-item"><a href="{{ route('roles.index') }}"class="nav-link link-dark px-2">จัดการบทบาท</a>
+                        aria-current="page">{{ __('messages.HOME') }}</a></li>
+                <li class="nav-item"><a href="{{ url('/posts') }}"
+                        class="nav-link link-dark px-2">{{ __('messages.ARTICLE') }}</a></li>
+                <li class="nav-item"><a href="{{ url('/category') }}"
+                        class="nav-link link-dark px-2">{{ __('messages.CATEGORY') }}</a>
                 </li>
                 <li class="nav-item"><a
-                        href="{{ route('users.index') }}"class="nav-link link-dark px-2">จัดการสมาชิก</a></li>
-                <li class="nav-item"><a href="{{ url('/products') }}" class="nav-link link-dark px-2">สินค้า</a></li>
-                <li class="nav-item"><a href="{{ url('/aboute') }}" class="nav-link link-dark px-2">เกี่ยวกับเรา</a>
+                        href="{{ route('roles.index') }}"class="nav-link link-dark px-2">{{ __('messages.ROLE-MANAGEMENT') }}</a>
+                </li>
+                <li class="nav-item"><a
+                        href="{{ route('users.index') }}"class="nav-link link-dark px-2">{{ __('messages.USERS-MANAGEMENT') }}</a>
+                </li>
+                <li class="nav-item"><a href="{{ url('/products') }}"
+                        class="nav-link link-dark px-2">{{ __('messages.PRODUCT') }}</a></li>
+                <li class="nav-item"><a href="{{ url('/aboute') }}"
+                        class="nav-link link-dark px-2">{{ __('messages.ABOUTE') }}</a>
                 </li>
             </ul>
             <ul class="nav">
                 @guest
                     @if (Route::has('login'))
-                        <li class="nav-item"><a href="{{ route('login') }}" class="nav-link link-dark px-2">เข้าระบบ</a>
+                        <li class="nav-item"><a href="{{ route('login') }}"
+                                class="nav-link link-dark px-2">{{ __('messages.LOGIN') }}</a>
                         </li>
                     @endif
                     @if (Route::has('register'))
                         <li class="nav-item"><a href="{{ route('register') }}"
-                                class="nav-link link-dark px-2">ลงทะเบียน</a>
+                                class="nav-link link-dark px-2">{{ __('messages.REGISTER') }}</a>
                         </li>
                     @endif
                 @else
@@ -62,7 +72,16 @@
                         </div>
                     </li>
                 @endguest
+                <li>
+                    <select class="form-control changeLang">
+                        <option value="en" {{ session()->get('locale') == 'en' ? 'selected' : '' }}>English
+                        </option>
+                        <option value="th" {{ session()->get('locale') == 'th' ? 'selected' : '' }}>ภาษาไทย
+                        </option>
+                    </select>
+                </li>
             </ul>
+
         </div>
     </nav>
     <div class="container">
@@ -70,11 +89,12 @@
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
+
+@livewireScripts
+
 @if (Session::has('success'))
     <script>
         Swal.fire(
@@ -84,6 +104,14 @@
         )
     </script>
 @endif
+<script type="text/javascript">
+    var url = "{{ route('changeLang') }}";
+
+    $(".changeLang").change(function() {
+        window.location.href = url + "?lang=" + $(this).val();
+    });
+</script>
+
 @yield('js_before')
 
 </html>

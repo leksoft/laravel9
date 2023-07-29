@@ -5,20 +5,33 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\StudentsController;
-use App\Http\Controllers\FrontendController ;
 use App\Http\Controllers\ProductsController; 
+use App\Http\Controllers\FrontendController ;
 use App\Http\Controllers\EmailController; 
 use App\Models\Order ; 
 use App\Models\Product ; 
-
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\exportPDFController ;
+use App\Http\Controllers\LangController;
 
+use App\Http\Controllers\CustomerController; 
+
+Route::get('customers', [CustomerController::class, 'index'])->name('customers');
+
+
+Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
 
 //Frontend 
 Route::get('/',[FrontendController::class,'index']);
 Route::get('/aboute',[FrontendController::class,'aboute']);
 Route::get('send-email', [EmailController::class, 'send_email']);
+
+Route::get('exportPDF', [exportPDFController::class, 'exportPDF']);
+
+Route::get('getDataApi', [FrontendController::class, 'getDataApi']);
+
+
 
 Auth::routes();
 
@@ -59,6 +72,8 @@ Route::post('post/update/{id}',[PostsController::class,'update'])->name('update'
 Route::get('post/destroy/{id}',[PostsController::class,'destroy'])->name('destroy') ; //ลบข้อมูล
 Route::get('post/show/{id}',[PostsController::class,'show'])->name('show') ; //แสดงรายละเอียดข้อมูล
 
+Route::post('/posts/uploads',[PostsController::class,'upload'])->name('posts.uploads') ; //อับโหลดไฟล์จาก ckeditor
+
 //CategoryController 
 Route::get('/category',[CategoryController::class,'index']); // แสดงข้อมูลทั้งหมด
 Route::get('category/create',[CategoryController::class,'create'])->name('category.create') ;  //ฟอร์มเพิ่มข้อมูลใหม่
@@ -70,4 +85,3 @@ Route::get('category/destroy/{id}',[CategoryController::class,'destroy'])->name(
 
 Route::resource('users', UserController::class);
 Route::resource('roles', RoleController::class);
-
